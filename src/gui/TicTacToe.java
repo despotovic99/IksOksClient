@@ -32,7 +32,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class TicTacToe {
-	private JFrame frame;
+	public JFrame frame;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
@@ -80,28 +80,22 @@ public class TicTacToe {
 	private JMenuBar menuBar;
 	private JMenu mnMenu;
 	private JMenuItem mntmNewGame;
-	private JMenuItem mntmEntry;
 	private JMenuItem mntmExit;
 	static Konekcija konek;
 
 	
-	    public static void main(String[] args) {
+	  /*  public static void main(String[] args) {
 	        EventQueue.invokeLater(new Runnable() {
 	            public void run() {
 	                try {
-	                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	                    TicTacToe window = new TicTacToe();
-	                     konek=new Konekcija();
-	                    konek.poveziSe();
-	                    System.out.println(konek.pozdrav());
-	                    window.frame.setVisible(true);
+	                    
 	                } catch (Exception e) {
 	                    e.printStackTrace();
 	                }
 	            }
 	        });
 	    }
-	
+	*/
 
 
 	public TicTacToe() {
@@ -217,6 +211,8 @@ public class TicTacToe {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.getContentPane().add(getPanel(), BorderLayout.CENTER);
 		frame.setJMenuBar(getMenuBar());
+		konek=new Konekcija();
+	      konek.poveziSe();
 	}
 
 	private JPanel getPanel() {
@@ -705,7 +701,6 @@ public class TicTacToe {
 		if (mnMenu == null) {
 			mnMenu = new JMenu("Menu 1");
 			mnMenu.add(getMntmNewGame());
-			mnMenu.add(getMntmEntry());
 			mnMenu.add(getMntmExit());
 		}
 		return mnMenu;
@@ -713,7 +708,7 @@ public class TicTacToe {
 
 	private JMenuItem getMntmNewGame() {
 		if (mntmNewGame == null) {
-			mntmNewGame = new JMenuItem("New game");
+			mntmNewGame = new JMenuItem("Trazi igru");
 			mntmNewGame.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
@@ -728,13 +723,6 @@ public class TicTacToe {
 			
 		}
 		return mntmNewGame;
-	}
-
-	private JMenuItem getMntmEntry() {
-		if (mntmEntry == null) {
-			mntmEntry = new JMenuItem("Entry");
-		}
-		return mntmEntry;
 	}
 
 	private JMenuItem getMntmExit() {

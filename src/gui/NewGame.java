@@ -45,7 +45,7 @@ public class NewGame extends JFrame {
         contentPane.setLayout(null);
         contentPane.add(getLblNewLabel());
         contentPane.add(getPanelTabela());
-         tabela = new TabelaIgraca((int) (panelTabela.getWidth()*0.9),panelTabela.getHeight(),data);
+         tabela = new TabelaIgraca((int) (panelTabela.getWidth()*0.9),panelTabela.getHeight(),data,this);
          panelTabela.add(tabela);
         this.serverIn = serverIn;
         this.serverOut = serverOut;

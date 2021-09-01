@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
@@ -18,13 +24,18 @@ public class Konekcija {
     public static BufferedReader serverInput;
     static public PrintStream serverOutput;
     
+    ///
+    DatagramSocket hostGameSocket;
+   /* Socket gameSocket;
+    public static BufferedReader serverGameInput;
+    static public PrintStream serverGameOutput;*/
+    
     public void poveziSe() {
         try {
             soket=new Socket(ip, port);
             serverInput=new BufferedReader(new InputStreamReader(soket.getInputStream()));
             serverOutput=new PrintStream(soket.getOutputStream());
         } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Server je pao.");
@@ -38,7 +49,8 @@ public class Konekcija {
     public int getPort() {
         return port;
     }
-    
+ 
+    // brisi
     public String pozdrav() {
     	try {
 			return serverInput.readLine();
@@ -76,6 +88,8 @@ public class Konekcija {
     	return null;
     }
     
+   
+
     
     
 
