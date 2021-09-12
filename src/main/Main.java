@@ -5,7 +5,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import gui.Prozor;
-import gui.TicTacToe;
 import utils.Konekcija;
 
 public class Main {

@@ -4,12 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
@@ -21,8 +15,8 @@ import gui.Prozor;
  
 
 public class Konekcija implements Runnable{
-  //  private final String ip="34.65.104.222";
-    private final String ip="localhost";
+    private final String ip="34.65.104.222";
+ //   private final String ip="localhost";
     private final int port=3000;
     private Socket soket;
     public static BufferedReader serverInput;
@@ -107,7 +101,12 @@ public class Konekcija implements Runnable{
 				case "pokreniIgru":
 					// username i znak 
 					System.out.println("na korak do sna");
-					prozor.prikaziIgraPanel(odgovor[1],odgovor[2]);
+					prozor.prikaziIgraPanel(odgovor[1],odgovor[2],odgovor[3]);
+					break;
+				case "potez":
+					
+					prozor.igraPanel.protivnikPotez(odgovor[1]);
+				
 					break;
 					
 				case "serverOdjava":
@@ -220,6 +219,20 @@ public class Konekcija implements Runnable{
 	public static void pokreniIgru(String username) {
 
 		String zahtev = "{\"zaglavlje\":\""+"pokreniIgru"+"\",\"igrac\":\""+username+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static void potez(String protivnik, String i) {
+		
+		String zahtev = "{\"zaglavlje\":\""+"potez"+"\",\"igrac\":\""+protivnik+"\",\"polje\":\""+i+"\"}";
 		
 		try {
 			serverOutput.write(zahtev.getBytes());

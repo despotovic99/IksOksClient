@@ -7,7 +7,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
-import javax.swing.plaf.ProgressBarUI;
+
 
 import utils.Konekcija;
 
@@ -17,6 +17,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class SobaCekanje extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel lblIgrac;
 	private JLabel lblUsername;
 	private JLabel lblNewLabel;
@@ -25,7 +29,7 @@ public class SobaCekanje extends JPanel {
 	private JProgressBar progressBar;
 	private JButton btnTraziIgru;
 	private JButton btnOtkaziNapravi;
-	private Prozor prozor;
+	public Prozor prozor;
 	
 	public SobaCekanje(Prozor prozor) {
 		setLayout(null);

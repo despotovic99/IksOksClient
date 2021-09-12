@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.JPanel;
-import javax.swing.JTable;
 
 import utils.ObjIgraca;
 
@@ -13,6 +12,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class NadjiIgru extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JButton btnVratiSeSobaCekanje;
 	TabelaIgraca tabela;

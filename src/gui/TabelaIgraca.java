@@ -16,8 +16,10 @@ import utils.ObjIgraca;
 
 public class TabelaIgraca extends JPanel {
 
+
+	private static final long serialVersionUID = 1L;
 	LinkedList<ObjIgraca> igraci = null;
-	private Prozor prozor;
+	public Prozor prozor;
 
 	public TabelaIgraca(int sirina, int visina, LinkedList<ObjIgraca> data,Prozor prozor) {
 		
@@ -40,6 +42,8 @@ public class TabelaIgraca extends JPanel {
 		this.prozor=prozor;
 
 		DefaultTableModel df = new DefaultTableModel(data1, zaglavlje) {
+
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isCellEditable(int row, int column) {

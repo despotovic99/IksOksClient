@@ -1,21 +1,14 @@
 package gui;
 
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.security.PublicKey;
-
-import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 
 import gui.polje.Polje;
+import utils.Konekcija;
 
-import com.jgoodies.forms.layout.FormSpecs;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -26,6 +19,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class IgraPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel panelPolja;
 	private JPanel panelRezultat;
 	private JPanel panelIgrac1;
@@ -46,60 +43,109 @@ public class IgraPanel extends JPanel {
 	Polje polje9 = new Polje("");
 	private final JButton btnPredaj = new JButton("Predaj");
 	
-	private Prozor prozor;
+	public Prozor prozor;
 	private String protivnik;
 	private String mojZnak;
 	
-	public IgraPanel(Prozor prozor,String protivnik,String mojZnak) {
+	public IgraPanel(Prozor prozor,String protivnik,String mojZnak, String stanjePolja) {
 		this.prozor=prozor;
 		this.protivnik=protivnik;
 		this.mojZnak=mojZnak;
+		
 		setLayout(null);
 		add(getPanelPolja());
 		add(getPanelRezultat());
 		polje1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				onOffPolja(false);;
+				//onOffPolja(false);
+				odigranPotez(polje1,"1");
 				
 			}
 		});
 		polje1.setLocation(10, 10);
 		polje1.setSize(120, 120);
 		panelPolja.add(polje1);
+		polje2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje2,"2");
+			}
+		});
 		polje2.setSize(120, 120);
 		polje2.setLocation(140, 10);
 		panelPolja.add(polje2);
+		polje3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje3,"3");
+			}
+		});
 		polje3.setSize(120, 120);
 		polje3.setLocation(270, 10);
 		panelPolja.add(polje3);
+		polje4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje4,"4");
+			}
+		});
 		polje4.setSize(120, 120);
 		polje4.setLocation(10, 140);
 		panelPolja.add(polje4);
+		polje5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje5,"5");
+			}
+		});
 		polje5.setSize(120, 120);
 		polje5.setLocation(140, 140);
 		panelPolja.add(polje5);
+		polje6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje6,"6");
+			}
+		});
 		polje6.setSize(120, 120);
 		polje6.setLocation(270, 140);
 		panelPolja.add(polje6);
+		polje7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje7,"7");
+			}
+		});
 		polje7.setSize(120, 120);
 		polje7.setLocation(10, 270);
 		panelPolja.add(polje7);
+		polje8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje8,"8");
+			}
+		});
 		polje8.setSize(120, 120);
 		polje8.setLocation(140, 270);
 		panelPolja.add(polje8);
+		polje9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				odigranPotez(polje9,"9");
+			}
+		});
 		polje9.setSize(120, 120);
 		polje9.setLocation(270, 270);
 		panelPolja.add(polje9);
 		
-		postaviElementeIgre(protivnik,mojZnak);
-	}
-	private void postaviElementeIgre(String protivnik2, String mojZnak2) {
+		
 		
 		lblNazivIgraca.setText(prozor.username);
-		lblNazivIgraca2.setText(protivnik2);
-		
+		lblNazivIgraca2.setText(protivnik);
+		if(stanjePolja.equalsIgnoreCase("false")) {
+			onOffPolja(false);
+		}
 	}
+	
+	private void odigranPotez(Polje polje, String vrednost) {
+		polje.pritisnutoDugme(mojZnak, Color.GREEN);
+		onOffPolja(false);
+		Konekcija.potez(protivnik,vrednost);
+	}
+	
 	private JPanel getPanelPolja() {
 		if (panelPolja == null) {
 			panelPolja = new JPanel();
@@ -193,9 +239,9 @@ public class IgraPanel extends JPanel {
 	
 	// metode 
 	
-	 private void azurirajVrednosti(JLabel polje,String tekst) {
+/*	 private void azurirajVrednosti(JLabel polje,String tekst) {
 		polje.setText(tekst);		 
-	}
+	}*/
 	 
 	 private void azurirajPolja(Polje polje,String vrednost,Color boja) {
 		 polje.pritisnutoDugme(vrednost, boja);
@@ -215,5 +261,47 @@ public class IgraPanel extends JPanel {
 		 
 		 
 	 }
+
+	public void protivnikPotez(String brPolja) {
+		
+		String znak="O";
+		if(mojZnak.equalsIgnoreCase("o")) {
+			znak="X";
+		}
+		switch (brPolja) {
+		case "1":
+			azurirajPolja(polje1, znak, Color.RED);
+			break;
+		case "2":
+			azurirajPolja(polje2, znak, Color.RED);
+			break;	
+		case "3":
+			azurirajPolja(polje3, znak, Color.RED);
+			break;
+		case "4":
+			azurirajPolja(polje4, znak, Color.RED);;
+			break;
+		case "5":
+			azurirajPolja(polje5, znak, Color.RED);
+			break;
+		case "6":
+			azurirajPolja(polje6, znak, Color.RED);
+			break;	
+		case "7":
+			azurirajPolja(polje7, znak, Color.RED);
+			break;	
+		case "8":
+			azurirajPolja(polje8, znak, Color.RED);
+			break;	
+		case "9":
+			azurirajPolja(polje9, znak, Color.RED);
+			break;	
+		default:
+			break;
+		}
+		onOffPolja(true);
+		
+		
+	}
 	 
 }
