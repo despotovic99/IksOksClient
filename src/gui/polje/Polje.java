@@ -7,32 +7,22 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
-public class Polje extends JPanel {
-	private JButton dugme;
-
-	/**
-	 * Create the panel.
-	 */
+public class Polje extends JButton {
+	
+	
 	public Polje(String vr) {
-		setLayout(new BorderLayout(0, 0));
-		add(getDugme(), BorderLayout.CENTER);
-		dugme.setText(vr);
+		setFont(new Font("Tahoma", Font.BOLD, 70));
+		setForeground(Color.GREEN);
 	}
 
-	private JButton getDugme() {
-		if (dugme == null) {
-			dugme = new JButton("X");
-			dugme.setFont(new Font("Tahoma", Font.BOLD, 70));
-			dugme.setForeground(Color.GREEN);
-		}
-		return dugme;
+	
+	public void pritisnutoDugme(String vrednost,Color boja) {
+		
+		setText(vrednost);
+		setForeground(boja);
+		
 	}
 	
-	void pritisnutoDugme(String vrednost,Color boja) {
-		
-		dugme.setText(vrednost);
-		dugme.setForeground(boja);
-		
-	}
+	
 	
 }

@@ -1,5 +1,6 @@
 package main;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -9,19 +10,25 @@ import utils.Konekcija;
 
 public class Main {
 
-	static Konekcija konek;
+	static Konekcija konekcija;
+	
+	static Prozor prozor;
 	
 	public static void main(String[] args) {
+		
+		konekcija= new Konekcija();
 		
 		try {
 			
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		
-		new Prozor().setVisible(true);
-		
-	/*	TicTacToe window = new TicTacToe();	      
-	     window.frame.setVisible(true);*/
-		
+		if(!konekcija.poveziSe()) {
+			JOptionPane.showMessageDialog(null, "Niste povezani sa serverom", "Greska prilikom povezivanja", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+		}
+		new Thread(konekcija).start();
+		prozor = new Prozor();
+		prozor.setVisible(true);
+		konekcija.postaviProzor(prozor);
 		
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 			| UnsupportedLookAndFeelException e) {

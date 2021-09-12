@@ -8,23 +8,28 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class pocetniPanel extends JPanel {
+import utils.Konekcija;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class PocetniPanel extends JPanel {
 
 	private JTextField Username;
 	
-	public pocetniPanel() {
+	public PocetniPanel() {
 		
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
 		setBackground(Color.BLACK);
 		setBounds(100, 100, 682, 335);
 		setLayout(null);
-		
-		JLabel lblDobrodosli = new JLabel("Dobrodo\u0161li u IKS-OKS");
+		//Dobrodo\u0161li u IKS-OKS
+		JLabel lblDobrodosli = new JLabel("");
 		lblDobrodosli.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDobrodosli.setForeground(Color.ORANGE);
 		lblDobrodosli.setFont(new Font("Verdana", Font.BOLD, 36));
@@ -38,28 +43,22 @@ public class pocetniPanel extends JPanel {
 		lblPrijava.setBounds(273, 96, 129, 30);
 		add(lblPrijava);
 		
-		JButton btnPrijava = new JButton(">>>> PRIJAVA <<<<");
-		btnPrijava.addMouseListener(new MouseAdapter() {
-			public void Prijava(MouseEvent e) {
-				String odg="";
-				String zahtev = "{\"zaglavlje\":\""+"svi"+"\",\"data\":\""+""+"\",\"kraj\":true}";
-				//serverOutput.write(zahtev.getBytes()); //msm da ce hteti kad se importuje konekcija
-			//	odg= serverInput.readLine();
-				
-				while(true) {
-			//		odg= serverInput.readLine(); 
-					if(odg!=null && odg.equalsIgnoreCase(Username.getText())) {
-					break;
-					}
-					System.out.println("Dobrodošli"); //treba da prebaci na TicTacToe
+		JButton btnPrijava = new JButton("Prijava");
+		btnPrijava.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Username.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Username ne sme biti prazan string");
+					return;
 				}
+				Konekcija.posaljiPrijavu(Username.getText());
 			}
 		});
+		
 		
 	
 		btnPrijava.setBackground(Color.ORANGE);
 		btnPrijava.setFont(new Font("Verdana", Font.BOLD, 22));
-		btnPrijava.setBounds(191, 224, 323, 37);
+		btnPrijava.setBounds(174, 220, 323, 37);
 		add(btnPrijava);
 		
 		Username = new JTextField();

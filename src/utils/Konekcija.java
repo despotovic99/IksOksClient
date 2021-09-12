@@ -14,81 +14,222 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
+
+import gui.Prozor;
+
  
 
-public class Konekcija {
+public class Konekcija implements Runnable{
   //  private final String ip="34.65.104.222";
     private final String ip="localhost";
     private final int port=3000;
-    Socket soket;
+    private Socket soket;
     public static BufferedReader serverInput;
     static public PrintStream serverOutput;
     
-    ///
-    DatagramSocket hostGameSocket;
-   /* Socket gameSocket;
-    public static BufferedReader serverGameInput;
-    static public PrintStream serverGameOutput;*/
+    Prozor prozor;
     
-    public void poveziSe() {
+    public boolean poveziSe() {
         try {
             soket=new Socket(ip, port);
             serverInput=new BufferedReader(new InputStreamReader(soket.getInputStream()));
             serverOutput=new PrintStream(soket.getOutputStream());
+            return true;
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Server je pao.");
         }
+        return false;
         
     }
     
-    public String getIp() {
-        return ip;
-    }
-    public int getPort() {
-        return port;
+    public void postaviProzor(Prozor prozor) {
+    	this.prozor=prozor;
     }
  
-    // brisi
-    public String pozdrav() {
-    	try {
-			return serverInput.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	return null;
-    }
     
-    public LinkedList<ObjIgraca> getSviKorisnici(){
-    	
-    	LinkedList<ObjIgraca> list= new LinkedList<>();
-    	String zahtev = "{\"zaglavlje\":\""+"svi"+"\",\"data\":\""+""+"\",\"kraj\":true}";
-    	try {
-			serverOutput.write(zahtev.getBytes());
-			String odg="";
-			
-			while(true) {
-				odg= serverInput.readLine();
-				if(odg!=null && odg.toLowerCase().startsWith("krajsvih")) {
+    
+
+	
+	@Override
+	public void run() {
+		
+		
+		while (true) {			
+			try {
+				String[] odgovor = serverInput.readLine().split("<>");
+				//format paketa
+				//zaglavlje<>data<>kodPotvrde
+				switch (odgovor[0]) {
+				case "prijava":
+					System.out.println(odgovor[0]+","+odgovor[1]+","+odgovor[2]+","+odgovor[3]);
+					if(odgovor[3].equalsIgnoreCase("potvrdno")) {
+						prozor.prikaziSobuZaCekanje();
+						
+					}else {
+						JOptionPane.showMessageDialog(null, odgovor[1], "Greska", JOptionPane.ERROR_MESSAGE);
+					}					
+					break;
+				
+				case "usernameIstatus":
+					//postavljanje username
+					prozor.username=odgovor[1];
+					prozor.sobaCekanje.postaviUsernameIStatus(odgovor[1],odgovor[2]);
+					break;
+					
+				case "nadjiIgru":
+					LinkedList<ObjIgraca> list= new LinkedList<>();
+					String[] igraci=odgovor[1].split(">>");
+					for (String igrac : igraci) {
+						if(igrac.equals("kraj")) {
+							break;
+						}
+						String[] k=igrac.split("-");
+						list.add(new ObjIgraca(k[0], k[1]));
+					}
+					prozor.prikaziNadjiPanel(list);
+						System.out.println(odgovor[1]);
+					break;
+				
+				case "zahtevZaIgru":
+					if(!prozor.igraAktivna
+							&& JOptionPane.showConfirmDialog
+							(prozor, "Igrac "+odgovor[1]+" zeli da igra sa Vama", "Zahtev za igru", JOptionPane.YES_NO_OPTION)==0) {
+						prozor.igraAktivna=true;
+						System.out.println("Pocinje igra");
+						pokreniIgru(odgovor[1]);
+					//	prozor.napraviPartiju();
+						
+					}
+					break;
+				case "pokreniIgru":
+					// username i znak 
+					System.out.println("na korak do sna");
+					prozor.prikaziIgraPanel(odgovor[1],odgovor[2]);
+					break;
+					
+				case "serverOdjava":
+					JOptionPane.showMessageDialog(null, odgovor[1], "Greska", JOptionPane.ERROR_MESSAGE);
+					System.exit(1);
+					break;
+				default:
+					//System.out.println("proveraaaa");
 					break;
 				}
-				System.out.println(odg);
-				String[] k=odg.split("-");
-				list.add(new ObjIgraca(k[0], k[1], k[2]));
+				
+				
+				
+				
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-			return list;
+			
+		}
+		
+		
+	}
+	
+	public static void posaljiPrijavu(String username) {
+		
+		String zahtev = "{\"zaglavlje\":\""+"prijava"+"\",\"data\":\""+username+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	return null;
-    }
+		
+	}
+
+
+	public static void traziUsernameIStatus() {
+	
+		String zahtev = "{\"zaglavlje\":\""+"usernameIstatus"+"\",\"data\":\"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static void napraviIgru() {
+		
+		String zahtev = "{\"zaglavlje\":\""+"napraviIgru"+"\",\"data\":\"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static void promeniStatus(String status) {
+		String zahtev = "{\"zaglavlje\":\""+"status"+"\",\"data\":\""+status+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static void nadjiIgru() {
+		
+		String zahtev = "{\"zaglavlje\":\""+"nadjiIgru"+"\",\"data\":\"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void posaljiZahtevZaIgru(String username,String igrac) {
+
+		String zahtev = "{\"zaglavlje\":\""+"zahtevZaIgru"+"\",\"host\":\""+username+"\",\"igrac\":\""+igrac+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
     
-   
+	public static void pokreniIgru(String username) {
+
+		String zahtev = "{\"zaglavlje\":\""+"pokreniIgru"+"\",\"igrac\":\""+username+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
     
     

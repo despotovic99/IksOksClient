@@ -713,9 +713,7 @@ public class TicTacToe {
 				public void actionPerformed(ActionEvent arg0) {
 					
 					
-					LinkedList<ObjIgraca>data=konek.getSviKorisnici();
-					  NewGame ng = new NewGame(konek.serverOutput, konek.serverInput,data);
-					  ng.setVisible(true);
+					
 					  
 					 
 				}

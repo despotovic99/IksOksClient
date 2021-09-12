@@ -11,23 +11,33 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import utils.Konekcija;
 import utils.ObjIgraca;
 
 public class TabelaIgraca extends JPanel {
 
 	LinkedList<ObjIgraca> igraci = null;
-	NewGame ng;
+	private Prozor prozor;
 
-	public TabelaIgraca(int sirina, int visina, LinkedList<ObjIgraca> data,NewGame ng) {
-		this.ng=ng;
-
-		String[] zaglavlje = { "Username", "Status" };
-		String[][] data1 = new String[data.size()][];
-		int i = 0;
-		for (ObjIgraca o : data) {
-			data1[i++] = new String[] { o.getUsername(), o.getStatus() };
+	public TabelaIgraca(int sirina, int visina, LinkedList<ObjIgraca> data,Prozor prozor) {
+		
+		int brEl=0;
+		if(data!=null) {
+			brEl=data.size();
 		}
+		String[] zaglavlje = { "Username", "Status" };
+		String[][] data1 = new String[brEl][];
+		int i = 0;
+		try {
+			for (ObjIgraca o : data) {
+				data1[i++] = new String[] { o.getUsername(), o.getStatus() };
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		igraci = data;
+		this.prozor=prozor;
 
 		DefaultTableModel df = new DefaultTableModel(data1, zaglavlje) {
 
@@ -54,8 +64,8 @@ public class TabelaIgraca extends JPanel {
 				
 				if(JOptionPane.showConfirmDialog(null, "Poslati zahtev korisniku "+o.getUsername(), "Zahtev za igru",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0) {
+					Konekcija.posaljiZahtevZaIgru(o.getUsername(),prozor.username);
 					
-					ng.dispose();
 				}
 			}
 
