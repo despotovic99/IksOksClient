@@ -32,8 +32,8 @@ public class IgraPanel extends JPanel {
 	private JLabel lblRezultat2;
 	private JPanel panelZaDugme;
 	private final JButton btnPredaj = new JButton("Predaj");
-	private final JButton btnRevans = new JButton("Revanš");
-	private final JButton btnNapusti = new JButton("Napusti");
+	private JButton btnRevans = new JButton("Revanš");
+	private JButton btnNapusti = new JButton("Napusti");
 
 	Polje polje1 = new Polje("");
 	Polje polje2 = new Polje("");
@@ -227,7 +227,7 @@ public class IgraPanel extends JPanel {
 
 	// metode
 
-	private void onOffPolja(boolean vrednost) {
+	public void onOffPolja(boolean vrednost) {
 		polje1.setEnabled(vrednost);
 		polje2.setEnabled(vrednost);
 		polje3.setEnabled(vrednost);
@@ -312,11 +312,13 @@ public class IgraPanel extends JPanel {
 	}
 
 	private void postaviRevansDugme() {
+		btnRevans =new JButton("Revans");
 		btnRevans.setBounds(10, 5, 139, 45);
 		btnRevans.setForeground(Color.RED);
 		btnRevans.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnRevans.setBackground(Color.RED);
 		
+		btnNapusti=new JButton("Napusti");
 		btnNapusti.setBounds(10, 55, 139, 45);
 		btnNapusti.setForeground(Color.RED);
 		btnNapusti.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -331,7 +333,8 @@ public class IgraPanel extends JPanel {
 		btnNapusti.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				Konekcija.promeniStatus("online");
+			
+				Konekcija.posaljiNapustanje(protivnik);
 				prozor.igraAktivna=false;
 				prozor.prikaziSobuZaCekanje();
 				
@@ -401,7 +404,7 @@ public class IgraPanel extends JPanel {
 	}
 
 	public void osveziPanel() {
-		onOffPolja(true);
+		postaviPredajDugme();
 		polje1.osveziPolje();
 		polje2.osveziPolje();
 		polje3.osveziPolje();

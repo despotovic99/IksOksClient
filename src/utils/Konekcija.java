@@ -113,6 +113,7 @@ public class Konekcija implements Runnable{
 					String potvrda="negativno";
 					if(JOptionPane.showConfirmDialog(prozor, "Zelite li da igrate ponovo sa igracem "+odgovor[1]+"?", "Ponovna igra", JOptionPane.YES_NO_OPTION)==0) {
 						prozor.igraPanel.osveziPanel();
+						prozor.igraPanel.onOffPolja(true);
 						potvrda="pozitivno";
 					}
 					posaljiOdgovorRevans(odgovor[1],potvrda);
@@ -122,12 +123,20 @@ public class Konekcija implements Runnable{
 				case "revansOdgovor":
 					if(odgovor[2].equalsIgnoreCase("pozitivno")) {
 						prozor.igraPanel.osveziPanel();
+						prozor.igraPanel.onOffPolja(false);
 					}else {
+						promeniStatus("online");
 						prozor.prikaziSobuZaCekanje();
 					}
 					break;
 				
 				case "predaja":
+					JOptionPane.showMessageDialog(prozor, odgovor[1]);
+					promeniStatus("online");
+					prozor.igraAktivna=false;
+					prozor.prikaziSobuZaCekanje();
+					break;
+				case "napustanje":
 					JOptionPane.showMessageDialog(prozor, odgovor[1]);
 					promeniStatus("online");
 					prozor.igraAktivna=false;
@@ -323,6 +332,21 @@ public class Konekcija implements Runnable{
 		}
 		
 	}
+
+	public static void posaljiNapustanje(String protivnik) {
+		// TODO Auto-generated method stub
+		String zahtev = "{\"zaglavlje\":\""+"napustanje"+"\",\"igrac\":\""+protivnik+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
     
     
 
