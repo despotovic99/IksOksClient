@@ -48,6 +48,12 @@ public class IgraPanel extends JPanel {
 	public Prozor prozor;
 	private String protivnik;
 	private String mojZnak;
+	
+	
+
+	public String getProtivnik() {
+		return protivnik;
+	}
 
 	public IgraPanel(Prozor prozor, String protivnik, String mojZnak, String stanjePolja) {
 		this.prozor = prozor;
@@ -294,6 +300,9 @@ public class IgraPanel extends JPanel {
 		if (krajIgre()) {
 			prikaziKraj();
 			return;
+		}else if (!krajIgre() && svaPoljaAktivirana()) {
+			// nereseno
+			// konekcija nereseno
 		}
 
 		onOffPolja(true);
@@ -309,6 +318,14 @@ public class IgraPanel extends JPanel {
 		postaviRevansDugme();
 		Konekcija.posaljiRezultat(protivnik, rez);
 
+	}
+	
+	private boolean svaPoljaAktivirana() {
+		
+		return polje1.isAktiviran() && polje2.isAktiviran() &&
+				polje3.isAktiviran() && polje4.isAktiviran() && polje5.isAktiviran() &&
+				polje6.isAktiviran() && polje7.isAktiviran() && polje8.isAktiviran() &&
+				polje9.isAktiviran();
 	}
 
 	private void postaviRevansDugme() {

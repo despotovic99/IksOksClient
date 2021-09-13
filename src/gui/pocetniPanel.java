@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 import utils.Konekcija;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class PocetniPanel extends JPanel {
 
@@ -25,26 +27,28 @@ public class PocetniPanel extends JPanel {
 	public PocetniPanel() {
 		
 		setForeground(Color.WHITE);
-		setBackground(Color.BLACK);
-		setBackground(Color.BLACK);
-		setBounds(100, 100, 682, 335);
+		setBackground(UIManager.getColor("Panel.background"));
+		//setBackground(Color.BLACK);
+		setBounds(100, 100, 604, 393);
 		setLayout(null);
-		//Dobrodo\u0161li u IKS-OKS
-		JLabel lblDobrodosli = new JLabel("");
+		
+		JLabel lblDobrodosli = new JLabel("RMT IKS-OKS");
 		lblDobrodosli.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDobrodosli.setForeground(Color.ORANGE);
+		lblDobrodosli.setForeground(new Color(0, 0, 255));
 		lblDobrodosli.setFont(new Font("Verdana", Font.BOLD, 36));
-		lblDobrodosli.setBounds(68, -22, 533, 132);
+		lblDobrodosli.setBounds(112, 44, 366, 70);
 		add(lblDobrodosli);
 		
 		JLabel lblPrijava = new JLabel("Prijavite se");
+		lblPrijava.setBackground(SystemColor.textHighlight);
 		lblPrijava.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPrijava.setFont(new Font("Verdana", Font.PLAIN, 22));
-		lblPrijava.setForeground(Color.WHITE);
-		lblPrijava.setBounds(273, 96, 129, 30);
+		lblPrijava.setForeground(SystemColor.textHighlight);
+		lblPrijava.setBounds(226, 145, 129, 30);
 		add(lblPrijava);
 		
 		JButton btnPrijava = new JButton("Prijava");
+		btnPrijava.setForeground(new Color(218, 165, 32));
 		btnPrijava.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Username.getText().equals("")) {
@@ -57,18 +61,17 @@ public class PocetniPanel extends JPanel {
 		
 		
 	
-		btnPrijava.setBackground(Color.ORANGE);
+		btnPrijava.setBackground(new Color(147, 112, 219));
 		btnPrijava.setFont(new Font("Verdana", Font.BOLD, 22));
-		btnPrijava.setBounds(174, 220, 323, 37);
+		btnPrijava.setBounds(133, 283, 323, 37);
 		add(btnPrijava);
 		
 		Username = new JTextField();
 		Username.setHorizontalAlignment(SwingConstants.CENTER);
 		Username.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 18));
 		Username.setBackground(new Color(255, 204, 51));
-		Username.setBounds(250, 154, 165, 30);
+		Username.setBounds(188, 210, 226, 30);
 		add(Username);
 		Username.setColumns(10);
 	}
-
 }

@@ -9,8 +9,7 @@ import utils.Konekcija;
 
 public class Main {
 
-	static Konekcija konekcija;
-	
+	static Konekcija konekcija;	
 	static Prozor prozor;
 	
 	public static void main(String[] args) {

@@ -15,8 +15,8 @@ import gui.Prozor;
  
 
 public class Konekcija implements Runnable{
-   // private final String ip="34.65.104.222";
-    private final String ip="localhost";
+    private final String ip="34.65.104.222";
+   // private final String ip="localhost";
     private final int port=3000;
     private Socket soket;
     public static BufferedReader serverInput;
@@ -58,7 +58,7 @@ public class Konekcija implements Runnable{
 						prozor.prikaziSobuZaCekanje();
 						
 					}else {
-						JOptionPane.showMessageDialog(null, odgovor[1], "Greska", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(prozor, odgovor[1], "Greska", JOptionPane.ERROR_MESSAGE);
 					}					
 					break;
 				
@@ -89,7 +89,7 @@ public class Konekcija implements Runnable{
 						prozor.igraAktivna=true;
 						System.out.println("Pocinje igra");
 						pokreniIgru(odgovor[1]);
-					//	prozor.napraviPartiju();
+					
 						
 					}
 					break;

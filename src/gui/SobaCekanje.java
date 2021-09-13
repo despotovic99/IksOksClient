@@ -50,7 +50,7 @@ public class SobaCekanje extends JPanel {
 			lblIgrac.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			lblIgrac.setHorizontalAlignment(SwingConstants.CENTER);
 			lblIgrac.setBorder(null);
-			lblIgrac.setBounds(44, 46, 115, 47);
+			lblIgrac.setBounds(116, 51, 115, 47);
 		}
 		return lblIgrac;
 	}
@@ -60,7 +60,7 @@ public class SobaCekanje extends JPanel {
 			lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 			lblUsername.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-			lblUsername.setBounds(184, 44, 162, 52);
+			lblUsername.setBounds(256, 49, 162, 52);
 		}
 		return lblUsername;
 	}
@@ -69,7 +69,7 @@ public class SobaCekanje extends JPanel {
 			lblNewLabel = new JLabel("Status");
 			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setBounds(44, 127, 115, 52);
+			lblNewLabel.setBounds(116, 132, 115, 52);
 		}
 		return lblNewLabel;
 	}
@@ -79,7 +79,7 @@ public class SobaCekanje extends JPanel {
 			lblStatus.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 			lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
-			lblStatus.setBounds(184, 127, 162, 52);
+			lblStatus.setBounds(256, 132, 162, 52);
 		}
 		return lblStatus;
 	}
@@ -100,7 +100,7 @@ public class SobaCekanje extends JPanel {
 			btnNapraviIgru.setForeground(new Color(0, 128, 0));
 			btnNapraviIgru.setBackground(new Color(127, 255, 0));
 			btnNapraviIgru.setBorder(new LineBorder(Color.GREEN, 2, true));
-			btnNapraviIgru.setBounds(90, 245, 135, 65);
+			btnNapraviIgru.setBounds(162, 250, 135, 65);
 		}
 		return btnNapraviIgru;
 	}
@@ -108,7 +108,7 @@ public class SobaCekanje extends JPanel {
 		if (progressBar == null) {
 			progressBar = new JProgressBar();
 			progressBar.setVisible(false);
-			progressBar.setBounds(123, 353, 210, 15);
+			progressBar.setBounds(195, 358, 210, 15);
 			
 		}
 		return progressBar;
@@ -132,7 +132,7 @@ public class SobaCekanje extends JPanel {
 			btnTraziIgru.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			btnTraziIgru.setBorder(new LineBorder(Color.GREEN, 2, true));
 			btnTraziIgru.setBackground(new Color(127, 255, 0));
-			btnTraziIgru.setBounds(274, 245, 135, 65);
+			btnTraziIgru.setBounds(346, 250, 135, 65);
 		}
 		return btnTraziIgru;
 	}
@@ -154,7 +154,7 @@ public class SobaCekanje extends JPanel {
 			btnOtkaziNapravi.setVisible(false);
 			btnOtkaziNapravi.setForeground(Color.RED);
 			btnOtkaziNapravi.setFont(new Font("Tahoma", Font.PLAIN, 30));
-			btnOtkaziNapravi.setBounds(424, 48, 50, 50);
+			btnOtkaziNapravi.setBounds(496, 53, 50, 50);
 		}
 		return btnOtkaziNapravi;
 	}
