@@ -117,6 +117,8 @@ public class Konekcija implements Runnable{
 						prozor.igraPanel.osveziPanel();
 						prozor.igraPanel.onOffPolja(true);
 						potvrda="pozitivno";
+					}else {
+						prozor.prikaziSobuZaCekanje();
 					}
 					posaljiOdgovorRevans(odgovor[1],potvrda);
 					
