@@ -15,8 +15,8 @@ import gui.Prozor;
  
 
 public class Konekcija implements Runnable{
-    private final String ip="34.65.104.222";
-   // private final String ip="localhost";
+   // private final String ip="34.65.104.222";
+    private final String ip="localhost";
     private final int port=3000;
     private Socket soket;
     public static BufferedReader serverInput;
@@ -95,7 +95,7 @@ public class Konekcija implements Runnable{
 					break;
 				case "pokreniIgru":
 					// username i znak 
-					
+					prozor.igraAktivna=true;
 					prozor.prikaziIgraPanel(odgovor[1],odgovor[2],odgovor[3]);
 					break;
 				case "potez":

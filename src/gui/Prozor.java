@@ -68,6 +68,7 @@ public class Prozor extends JFrame {
 	
 	
 	public void prikaziSobuZaCekanje() {
+		igraAktivna=false;
 		sobaCekanje=new SobaCekanje(this);
 		getContentPane().removeAll();
 		getContentPane().add(sobaCekanje);

@@ -9,6 +9,8 @@ import gui.polje.Polje;
 import utils.Konekcija;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -303,10 +305,19 @@ public class IgraPanel extends JPanel {
 		}else if (!krajIgre() && svaPoljaAktivirana()) {
 			// nereseno
 			// konekcija nereseno
+			prikaziNereseno();
+			return;
 		}
 
 		onOffPolja(true);
 
+	}
+	
+	private void prikaziNereseno() {
+		onOffPolja(false);
+		postaviRevansDugme();
+		Konekcija.posaljiRezultat(protivnik, 0);
+		JOptionPane.showMessageDialog(this, "Neresen rezultat","Nereseno",JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void prikaziKraj() {
@@ -315,9 +326,10 @@ public class IgraPanel extends JPanel {
 		rez++;
 		lblRezultat2.setText(rez + "");
 		onOffPolja(false);
+		
 		postaviRevansDugme();
 		Konekcija.posaljiRezultat(protivnik, rez);
-
+		JOptionPane.showMessageDialog(this, protivnik+" je pobedio.","Poraz",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private boolean svaPoljaAktivirana() {
@@ -392,8 +404,13 @@ public class IgraPanel extends JPanel {
 	}
 
 	public void azurirajMojRezultat(String rez) {
+		if(rez.equalsIgnoreCase("0")) {
+			JOptionPane.showMessageDialog(this, "Neresen rezultat","Nereseno",JOptionPane.INFORMATION_MESSAGE);
+		}else {
+			JOptionPane.showMessageDialog(this, "Pobedio si!","Pobeda",JOptionPane.INFORMATION_MESSAGE);
+			lblRezultat.setText(rez);
+		}
 		onOffPolja(false);
-		lblRezultat.setText(rez);
 		postaviRevansDugme();
 
 	}
