@@ -15,8 +15,8 @@ import gui.Prozor;
  
 
 public class Konekcija implements Runnable{
-    private final String ip="34.65.104.222";
- //   private final String ip="localhost";
+   // private final String ip="34.65.104.222";
+    private final String ip="localhost";
     private final int port=3000;
     private Socket soket;
     public static BufferedReader serverInput;
@@ -43,11 +43,6 @@ public class Konekcija implements Runnable{
     	this.prozor=prozor;
     }
  
-    
-    
-
-	
-	@Override
 	public void run() {
 		
 		
@@ -100,7 +95,7 @@ public class Konekcija implements Runnable{
 					break;
 				case "pokreniIgru":
 					// username i znak 
-					System.out.println("na korak do sna");
+					
 					prozor.prikaziIgraPanel(odgovor[1],odgovor[2],odgovor[3]);
 					break;
 				case "potez":
@@ -109,6 +104,35 @@ public class Konekcija implements Runnable{
 				
 					break;
 					
+				case "rezultat":
+					prozor.igraPanel.azurirajMojRezultat(odgovor[1]);
+					break;
+					
+				case "revans":
+					
+					String potvrda="negativno";
+					if(JOptionPane.showConfirmDialog(prozor, "Zelite li da igrate ponovo sa igracem "+odgovor[1]+"?", "Ponovna igra", JOptionPane.YES_NO_OPTION)==0) {
+						prozor.igraPanel.osveziPanel();
+						potvrda="pozitivno";
+					}
+					posaljiOdgovorRevans(odgovor[1],potvrda);
+					
+					break;
+				
+				case "revansOdgovor":
+					if(odgovor[2].equalsIgnoreCase("pozitivno")) {
+						prozor.igraPanel.osveziPanel();
+					}else {
+						prozor.prikaziSobuZaCekanje();
+					}
+					break;
+				
+				case "predaja":
+					JOptionPane.showMessageDialog(prozor, odgovor[1]);
+					promeniStatus("online");
+					prozor.igraAktivna=false;
+					prozor.prikaziSobuZaCekanje();
+					break;
 				case "serverOdjava":
 					JOptionPane.showMessageDialog(null, odgovor[1], "Greska", JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
@@ -133,6 +157,8 @@ public class Konekcija implements Runnable{
 		
 	}
 	
+	
+
 	public static void posaljiPrijavu(String username) {
 		
 		String zahtev = "{\"zaglavlje\":\""+"prijava"+"\",\"data\":\""+username+"\"}";
@@ -244,6 +270,59 @@ public class Konekcija implements Runnable{
 		
 	}
 
+	public static void posaljiRezultat(String protivnik, int rez) {
+		// TODO Auto-generated method stub
+		String zahtev = "{\"zaglavlje\":\""+"rezultat"+"\",\"igrac\":\""+protivnik+"\",\"rezultat\":\""+rez+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void posaljiZahtevZaRevans(String protivnik) {
+		
+		String zahtev = "{\"zaglavlje\":\""+"revans"+"\",\"igrac\":\""+protivnik+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void posaljiOdgovorRevans(String protivnik,String potvrda) {
+		
+		String zahtev = "{\"zaglavlje\":\""+"revansOdgovor"+"\",\"igrac\":\""+protivnik+"\",\"potvrda\":\""+potvrda+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void posaljiPredaju(String protivnik) {
+		
+		String zahtev = "{\"zaglavlje\":\""+"predaja"+"\",\"igrac\":\""+protivnik+"\"}";
+		
+		try {
+			serverOutput.write(zahtev.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
     
     
 

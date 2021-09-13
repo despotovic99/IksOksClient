@@ -12,6 +12,14 @@ public class Polje extends JButton {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private boolean aktiviran=false;
+	
+	
+	
+	public boolean isAktiviran() {
+		return aktiviran;
+	}
 
 
 	public Polje(String vr) {
@@ -20,11 +28,19 @@ public class Polje extends JButton {
 	}
 
 	
-	public void pritisnutoDugme(String vrednost,Color boja) {
-		
+	public boolean pritisnutoDugme(String vrednost,Color boja) {
+		if(isAktiviran()) {
+			return false;
+		}
+		aktiviran=true;
 		setText(vrednost);
 		setForeground(boja);
-		
+		return true;
+	}
+	
+	public void osveziPolje() {
+		aktiviran=false;
+		setText("");
 	}
 	
 	
