@@ -1,6 +1,5 @@
 package gui;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -12,7 +11,6 @@ import utils.ObjIgraca;
 import java.awt.CardLayout;
 import java.util.LinkedList;
 import java.awt.Rectangle;
-import java.awt.event.WindowListener;
 import java.awt.Toolkit;
 
 public class Prozor extends JFrame {

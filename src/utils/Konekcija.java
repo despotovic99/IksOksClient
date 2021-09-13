@@ -15,8 +15,8 @@ import gui.Prozor;
  
 
 public class Konekcija implements Runnable{
-   // private final String ip="34.65.104.222";
-    private final String ip="localhost";
+    private final String ip="34.65.104.222";
+   // private final String ip="localhost";
     private final int port=3000;
     private Socket soket;
     public static BufferedReader serverInput;
@@ -111,7 +111,9 @@ public class Konekcija implements Runnable{
 				case "revans":
 					
 					String potvrda="negativno";
-					if(JOptionPane.showConfirmDialog(prozor, "Zelite li da igrate ponovo sa igracem "+odgovor[1]+"?", "Ponovna igra", JOptionPane.YES_NO_OPTION)==0) {
+					if(JOptionPane.showConfirmDialog(prozor, "Zelite li da igrate ponovo sa igracem "+odgovor[1]+"?",
+							"Ponovna igra", JOptionPane.YES_NO_OPTION)==0
+							&& prozor.igraAktivna) {
 						prozor.igraPanel.osveziPanel();
 						prozor.igraPanel.onOffPolja(true);
 						potvrda="pozitivno";
@@ -121,7 +123,7 @@ public class Konekcija implements Runnable{
 					break;
 				
 				case "revansOdgovor":
-					if(odgovor[2].equalsIgnoreCase("pozitivno")) {
+					if(odgovor[2].equalsIgnoreCase("pozitivno") && prozor.igraAktivna) {
 						prozor.igraPanel.osveziPanel();
 						prozor.igraPanel.onOffPolja(false);
 					}else {
@@ -137,9 +139,10 @@ public class Konekcija implements Runnable{
 					prozor.prikaziSobuZaCekanje();
 					break;
 				case "napustanje":
+					prozor.igraAktivna=false;
 					JOptionPane.showMessageDialog(prozor, odgovor[1]);
 					promeniStatus("online");
-					prozor.igraAktivna=false;
+					
 					prozor.prikaziSobuZaCekanje();
 					break;
 				case "serverOdjava":
