@@ -35,7 +35,7 @@ public class Prozor extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Dokumenti\\eclipse-workspace\\TicTacToe\\tic-tac-toe.png"));
 		setTitle("Iks Oks");
 		setBounds(new Rectangle(0, 0, 650, 440));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 652, 485);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,6 +56,7 @@ public class Prozor extends JFrame {
 		        	}
 		            System.exit(0);
 		        }
+		       
 		    }
 		});
 		

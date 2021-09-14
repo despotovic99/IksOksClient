@@ -36,6 +36,8 @@ public class IgraPanel extends JPanel {
 	private final JButton btnPredaj = new JButton("Predaj");
 	private JButton btnRevans = new JButton("Revanš");
 	private JButton btnNapusti = new JButton("Napusti");
+	
+	public boolean poslaoRevans=false;
 
 	Polje polje1 = new Polje("");
 	Polje polje2 = new Polje("");
@@ -355,6 +357,7 @@ public class IgraPanel extends JPanel {
 		
 		btnRevans.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				poslaoRevans=true;
 				Konekcija.posaljiZahtevZaRevans(protivnik);
 			}
 		});
@@ -438,6 +441,7 @@ public class IgraPanel extends JPanel {
 	}
 
 	public void osveziPanel() {
+		poslaoRevans=false;
 		postaviPredajDugme();
 		polje1.osveziPolje();
 		polje2.osveziPolje();

@@ -53,7 +53,7 @@ public class Konekcija implements Runnable{
 				//zaglavlje<>data<>kodPotvrde
 				switch (odgovor[0]) {
 				case "prijava":
-					System.out.println(odgovor[0]+","+odgovor[1]+","+odgovor[2]+","+odgovor[3]);
+//					System.out.println(odgovor[0]+","+odgovor[1]+","+odgovor[2]+","+odgovor[3]);
 					if(odgovor[3].equalsIgnoreCase("potvrdno")) {
 						prozor.prikaziSobuZaCekanje();
 						
@@ -113,11 +113,12 @@ public class Konekcija implements Runnable{
 					String potvrda="negativno";
 					if(JOptionPane.showConfirmDialog(prozor, "Zelite li da igrate ponovo sa igracem "+odgovor[1]+"?",
 							"Ponovna igra", JOptionPane.YES_NO_OPTION)==0
-							&& prozor.igraAktivna) {
+							&& prozor.igraAktivna && !prozor.igraPanel.poslaoRevans) {
 						prozor.igraPanel.osveziPanel();
 						prozor.igraPanel.onOffPolja(true);
 						potvrda="pozitivno";
 					}else {
+						promeniStatus("online");
 						prozor.prikaziSobuZaCekanje();
 					}
 					posaljiOdgovorRevans(odgovor[1],potvrda);
@@ -298,6 +299,7 @@ public class Konekcija implements Runnable{
 	}
 
 	public static void posaljiZahtevZaRevans(String protivnik) {
+		
 		
 		String zahtev = "{\"zaglavlje\":\""+"revans"+"\",\"igrac\":\""+protivnik+"\"}";
 		
